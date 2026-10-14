@@ -53,6 +53,20 @@ protected:
 	UPROPERTY(EditAnywhere, Category = "Projectile | Variables")
 	float GravityStrength = 0.f;
 
+	virtual void PreInitializeComponents() override;
+
+	// Children override this for their element-specific effect
+	UFUNCTION(BlueprintNativeEvent, Category = "Projectile")
+	void OnProjectileImpact(AActor* OtherActor, const FHitResult& Hit);
+	virtual void OnProjectileImpact_Implementation(AActor* OtherActor, const FHitResult& Hit);
+
+	UPROPERTY(EditAnywhere, BlueprintReadOnly, Category = "Projectile | Damage")
+	float Damage = 10.f;
+
+	// If true, the hit skips the target's Defence (see UStatusEffectComponent)
+	UPROPERTY(EditAnywhere, BlueprintReadOnly, Category = "Projectile | Damage")
+	bool bIgnoresDefence = false;
+
 public:	
 	// Called every frame
 	virtual void Tick(float DeltaTime) override;

@@ -1,0 +1,12 @@
+<Project>
+  <!--
+    Workaround for "SetEnv task failed: Environment variable name or value is too long".
+    UE's generated UltimateGameDC.vcxproj has an IncludePath of ~49,000 characters (IntelliSense paths),
+    and VS copies it into the INCLUDE environment variable before running Build.bat, which exceeds
+    Windows' 32,767-character limit. UseEnv=true skips that step; UnrealBuildTool sets up its own
+    compiler environment, so the build is unaffected. IntelliSense still reads IncludePath as normal.
+  -->
+  <PropertyGroup>
+    <UseEnv>true</UseEnv>
+  </PropertyGroup>
+</Project>
